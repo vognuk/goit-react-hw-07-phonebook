@@ -10,6 +10,7 @@ import {
     delContactRequest,
     delContactSuccess,
     delContactError,
+    filterContacts
 } from './actions'
 
 // const items = [];
@@ -55,6 +56,7 @@ const items = createReducer([], {
     [addContactSuccess]: (state, { payload }) => [payload, ...state],
     [delContactSuccess]: (state, { payload }) =>
         state.filter(({ id }) => id !== payload),
+    [filterContacts]: (_, { payload }) => payload
 });
 
 // console.log(reducer);

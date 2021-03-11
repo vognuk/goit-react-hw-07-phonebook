@@ -47,7 +47,7 @@ class App extends Component {
         <Filter
           value={filter}
 
-          onChangeFilter={this.filterContacts}
+          onChangeFilter={this.props.onChange}
         />
 
         <Contacts
@@ -74,7 +74,8 @@ const mapDispatchToProps = dispatch => {
     initContacts: contacts => dispatch(operations.fetchContacts(contacts)),
     // addContact: (name, number) => dispatch(operations.addContact(name, number)),
     delContact: id => dispatch(operations.delContact(id)),
-    filterContacts: filter => dispatch(action.filter(filter)),
+    // filterContacts: filter => dispatch(action.filter(filter)),
+    onChange: e => dispatch(operations.filterContacts(e.target.value)),
   }
 };
 

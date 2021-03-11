@@ -38,4 +38,4 @@ export const addContactError = createAction('form/addContactError', (name, numbe
 export const delContactRequest = createAction('contact/delContactRequest');
 export const delContactSuccess = createAction('contact/delContactSuccess');
 export const delContactError = createAction('contact/delContactError');
-export const filter = createAction('contact/filterContacts');
+export const filterContacts = createAction('contact/filterContacts');
