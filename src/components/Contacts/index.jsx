@@ -20,8 +20,9 @@ class Contacts extends Component {
 
   render() {
     const { contacts, onDelete, filter } = this.props;
-    console.log(filter);
-    let list = contacts.filter(({ name }) => name.toLowerCase().includes(filter.toLowerCase()));
+
+    // console.log(filter);
+    let list = contacts.filter(({ name }) => String(name).toLowerCase().includes(String(filter).toLowerCase()));
     if (!list.length) {
       list = contacts;
     }

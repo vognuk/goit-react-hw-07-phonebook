@@ -11,7 +11,7 @@ import {
     delContactError,
 } from './actions'
 
-axios.defaults.baseURL = 'http://localhost:4040';
+axios.defaults.baseURL = 'http://localhost:3000';
 
 const fetchContacts = () => dispatch => {
     dispatch(initContactsRequest());
@@ -31,7 +31,6 @@ const addContact = contact => dispatch => {
 
 const delContact = id => dispatch => {
     dispatch(delContactRequest());
-
     axios
         .delete(`/contacts/${id}`)
         .then(() => dispatch(delContactSuccess(id)))

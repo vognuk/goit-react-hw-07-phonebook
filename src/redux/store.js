@@ -1,5 +1,5 @@
 import { combineReducers, configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
-// import { composeWithDevTools } from 'redux-devtools-extension'
+import { composeWithDevTools } from 'redux-devtools-extension'
 import contactsReducer from './contactsReducer'
 import loading from './contactsReducer'
 import logger from 'redux-logger'
@@ -32,15 +32,15 @@ const middleware = [
     logger
 ];
 
-console.log(loading);
+// console.log(loading);
 
 const store = configureStore({
     reducer: {
         contacts: contactsReducer,
     },
-    // loading,
-    // middleware,
-    // devTools: process.env.NODE_ENV === 'development',
+    loading,
+    middleware,
+    devTools: process.env.NODE_ENV === 'development',
 });
 
 export default store;

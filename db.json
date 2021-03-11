@@ -1,3 +1,38 @@
 {
-    "contacts": []
+  "contacts": [
+    {
+      "id": 2,
+      "name": "Naruto",
+      "number": "0504567825"
+    },
+    {
+      "id": 3,
+      "name": "Robert Polson",
+      "number": "0934567852"
+    },
+    {
+      "id": 29
+    },
+    {
+      "id": 30
+    },
+    {
+      "qwe": "",
+      "id": 31
+    },
+    {
+      "qwe": "",
+      "id": 32
+    },
+    {
+      "name": "qwe",
+      "id": 33,
+      "number": "0668208556"
+    },
+    {
+      "name": "asd",
+      "id": 34,
+      "number": "0505632563"
+    }
+  ]
 }

@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import * as action from './redux/actions'
 import * as selectors from './redux/contactsSelectors'
 import operations from './redux/contactsOperations'
-import { getAllContacts, getLoading } from './redux/contactsSelectors'
+// import { getAllContacts, getLoading } from './redux/contactsSelectors'
 
 class App extends Component {
 
@@ -23,7 +23,8 @@ class App extends Component {
     const { contacts: nowContacts } = this.props;
     const { contacts: prevContacts } = prevProps;
     if (nowContacts !== prevContacts) {
-      localStorage.setItem('contacts', JSON.stringify(nowContacts));
+      // this.props.addContact();
+      //   localStorage.setItem('contacts', JSON.stringify(nowContacts));
     }
   }
 
@@ -33,7 +34,6 @@ class App extends Component {
 
   render() {
     const { contacts, name, filter, number } = this.props;
-    console.log(this.props.contacts)
     return (
       <Container>
         <Form
@@ -60,10 +60,7 @@ class App extends Component {
   }
 }
 
-
-
 const mapStateToProps = state => {
-  console.log(state);
   return {
     contacts: selectors.getAllContacts(state),
     filter: selectors.getFilteredContacts(state),
@@ -75,6 +72,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     initContacts: contacts => dispatch(operations.fetchContacts(contacts)),
+    // addContact: (name, number) => dispatch(operations.addContact(name, number)),
     delContact: id => dispatch(operations.delContact(id)),
     filterContacts: filter => dispatch(action.filter(filter)),
   }

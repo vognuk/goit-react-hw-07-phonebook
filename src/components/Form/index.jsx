@@ -7,7 +7,7 @@ import s from './Form.module.css'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import validatePhoneNumber from '../../utils/validator'
-import action from '../../redux/actions'
+// import action from '../../redux/actions'
 import * as selectors from '../../redux/contactsSelectors'
 import operations from '../../redux/contactsOperations'
 
@@ -29,7 +29,7 @@ class Form extends Component {
 
   state = {
     name: '',
-    number: '+380',
+    number: '',
     sameContact: false,
   };
 
@@ -40,6 +40,13 @@ class Form extends Component {
 
   handleSubmit = e => {
     const { name, number } = this.state;
+    const contact = {
+      name: name,
+      id: '',
+      number: number,
+    };
+
+
     e.preventDefault();
     if (this.props.contacts.some(elem => elem.number === number)) {
       this.setState({ sameContact: true });
@@ -51,15 +58,18 @@ class Form extends Component {
     }
 
     if (validatePhoneNumber(number) === true) {
-      this.props.addContact(name, number);
+
+      this.props.addContact(contact);
+
     } else {
       alert("Enter correct number, please")
     }
+
     this.reset();
   };
 
   reset() {
-    this.setState({ name: '', number: '+380' });
+    this.setState({ name: '', number: '' });
   }
 
   render() {
@@ -113,6 +123,7 @@ class Form extends Component {
           <button
             className={s.button}
             disabled={false}
+            onSubmit={this.checkContact}
           >
             Add contact
           </button>
@@ -131,7 +142,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addContact: (name, number) => dispatch(operations.addContact(name, number)),
+    addContact: (contact) => dispatch(operations.addContact(contact)),
   }
 };
 
