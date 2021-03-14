@@ -4,7 +4,7 @@ import Form from './components/Form'
 import Contacts from './components/Contacts'
 import Filter from './components/Filter'
 import { connect } from 'react-redux'
-import * as action from './redux/actions'
+// import * as action from './redux/actions'
 import * as selectors from './redux/contactsSelectors'
 import operations from './redux/contactsOperations'
 // import { getAllContacts, getLoading } from './redux/contactsSelectors'
@@ -23,7 +23,8 @@ class App extends Component {
     const { contacts: nowContacts } = this.props;
     const { contacts: prevContacts } = prevProps;
     if (nowContacts !== prevContacts) {
-      // this.props.addContact();
+
+      // this.props.addContact(contact);
       //   localStorage.setItem('contacts', JSON.stringify(nowContacts));
     }
   }
@@ -33,7 +34,7 @@ class App extends Component {
   };
 
   render() {
-    const { contacts, name, filter, number } = this.props;
+    const { contacts, name, number } = this.props;
     return (
       <Container>
         <Form
@@ -45,15 +46,14 @@ class App extends Component {
         ></Form>
 
         <Filter
-          value={filter}
+          value={this.props.initialValue}
 
-          onChangeFilter={this.props.onChange}
+          onChangeFilter={this.props.filter}
         />
 
         <Contacts
           contacts={this.props.contacts}
           onDelete={this.props.delContact}
-          filter={filter}
         />
       </Container>
     );
@@ -62,20 +62,18 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    contacts: selectors.getAllContacts(state),
-    filter: selectors.getFilteredContacts(state),
-    // contacts: state.contacts.items,
-    // filter: state.contacts.filter,
+    contacts: selectors.getFilteredContacts(state),
+    initialValue: selectors.getFilter(state),
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    initContacts: contacts => dispatch(operations.fetchContacts(contacts)),
-    // addContact: (name, number) => dispatch(operations.addContact(name, number)),
+    initContacts: () => dispatch(operations.fetchContacts()),
+    // addContact: (contact) => dispatch(operations.addContact(contact)),
     delContact: id => dispatch(operations.delContact(id)),
     // filterContacts: filter => dispatch(action.filter(filter)),
-    onChange: e => dispatch(operations.filterContacts(e.target.value)),
+    // onChange: e => dispatch(operations.filterContacts(e.target.value)),
   }
 };
 

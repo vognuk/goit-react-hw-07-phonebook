@@ -9,7 +9,7 @@ class Contacts extends Component {
     onDelete: PropTypes.func.isRequired,
     contacts: PropTypes.arrayOf(
       PropTypes.exact({
-        id: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
         number: PropTypes.string.isRequired,
       })
@@ -19,20 +19,14 @@ class Contacts extends Component {
   state = {}
 
   render() {
-    const { contacts, onDelete, filter } = this.props;
-
-    // console.log(typeof name);
-    let list = contacts.filter(({ name }) => String(name).toLowerCase().includes(String(filter).toLowerCase()));
-    if (!list.length) {
-      list = contacts;
-    }
+    const { contacts, onDelete } = this.props;
 
     return (<div>
       <TransitionGroup
         component="ul"
         className={s.list}
       >
-        {list.map((elem, id) => (
+        {contacts.map((elem, id) => (
           <CSSTransition
             key={id}
             timeout={250}

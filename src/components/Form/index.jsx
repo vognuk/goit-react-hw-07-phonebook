@@ -7,7 +7,6 @@ import s from './Form.module.css'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import validatePhoneNumber from '../../utils/validator'
-// import action from '../../redux/actions'
 import * as selectors from '../../redux/contactsSelectors'
 import operations from '../../redux/contactsOperations'
 
@@ -17,13 +16,13 @@ class Form extends Component {
     number: PropTypes.string,
     contacts: PropTypes.arrayOf(
       PropTypes.exact({
-        id: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
         number: PropTypes.string.isRequired,
       })
     ),
     onChange: PropTypes.func,
-    onSubmit: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func,
     disabled: PropTypes.bool,
   };
 
@@ -38,38 +37,38 @@ class Form extends Component {
     this.setState({ [name]: value });
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     const { name, number } = this.state;
     const contact = {
-      name: name,
-      id: '',
-      number: number,
+      name,
+      number,
     };
 
-
     e.preventDefault();
-    if (this.props.contacts.some(elem => elem.number === number)) {
+
+    if (this.props.contacts.some(({ number }) => number === contact.number)) {
       this.setState({ sameContact: true });
       setTimeout(() => {
         this.setState({ sameContact: false });
-      }, 1000);
-      this.reset();
+      }, 500);
       return;
     }
 
     if (validatePhoneNumber(number) === true) {
-
+      this.setState({ name, number });
       this.props.addContact(contact);
-
+      this.reset();
     } else {
       alert("Enter correct number, please")
     }
 
-    this.reset();
   };
 
   reset() {
-    this.setState({ name: '', number: '' });
+    this.setState({
+      name: '',
+      number: ''
+    });
   }
 
   render() {
@@ -136,7 +135,6 @@ class Form extends Component {
 const mapStateToProps = state => {
   return {
     contacts: selectors.getAllContacts(state),
-    // contacts: state.contacts.items,
   }
 };
 
